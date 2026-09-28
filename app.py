@@ -56,34 +56,6 @@ if check_password():
     # --- 1. PANEL: BESİN VERİTABANI ---
     if secili_panel == "📚 Besin Veritabanı":
         st.header("Besin Veritabanı Yönetimi")
-    import pandas as pd
-    st.divider() # Araya şık bir çizgi çeker
-    with st.expander("📁 Toplu Besin Yükle (Excel / CSV) - Yeni Özellik!"):
-        st.markdown("""
-    **İpucu:** Yükleyeceğiniz dosyanın en üst satırında (sütun başlıkları olarak) İngilizce şu isimler olmalıdır: 
-    `name`, `category`, `meal_time`, `unit`, `calories`, `protein`, `fat`, `carbs`, `allergens`, `notes`
-    """)
-    
-    uploaded_file = st.file_uploader("Kendi besin listenizi seçin", type=["csv", "xlsx"])
-    
-    if uploaded_file is not None:
-        try:
-            # Dosya türüne göre okuma işlemi
-            if uploaded_file.name.endswith('.csv'):
-                df = pd.read_csv(uploaded_file)
-            else:
-                df = pd.read_excel(uploaded_file)
-            
-            st.write(f"✅ Dosya okundu: {len(df)} adet besin bulundu. Sisteme aktarımı onaylıyor musunuz?")
-            st.dataframe(df.head()) # Kullanıcıya verinin ilk 5 satırını önizleme olarak gösterir
-            
-            if st.button("🚀 Tüm Verileri Sisteme Aktar"):
-                import database as db
-                db.import_foods_from_df(df)
-                st.success(f"Mükemmel! {len(df)} besin başarıyla kütüphanenize eklendi.")
-                st.balloons()
-        except Exception as e:
-            st.error(f"Dosya okunurken bir hata oluştu: {e}. Lütfen sütun isimlerinizi kontrol edin.")
         
         def clear_food_inputs():
             keys = ["f_name", "f_cat", "f_meal", "f_unit", "f_cal", "f_pro", "f_fat", "f_carb", "f_allergens", "f_notes"]
