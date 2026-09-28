@@ -123,3 +123,11 @@ def update_food(food_id, name, category, meal_time, unit, calories, protein, fat
 if __name__ == "__main__":
     init_db()
     print("Harika! Veri tabanı ve tablolar başarıyla oluşturuldu (SQLite).")
+
+def import_foods_from_df(df):
+    """Excel veya CSV'den gelen verileri doğrudan veritabanına aktarır."""
+    with get_db_connection() as conn:
+        # Hata olmaması için sadece tablomuzdaki sütunları filtreleyelim
+        beklenen_sutunlar = ['name', 'category', 'meal_time', 'unit', 'calories', 'protein', 'fat', 'carbs', 'allergens', 'notes']
+        df_temiz = df.reindex(columns=beklenen_sutunlar).fillna(0) # Eksik sütunları 0/boş yapar
+        df_temiz.to_sql('foods', conn, if_exists='append', index=False)
