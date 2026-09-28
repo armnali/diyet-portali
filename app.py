@@ -57,7 +57,7 @@ if check_password():
     if secili_panel == "📚 Besin Veritabanı":
         st.header("Besin Veritabanı Yönetimi")
     import pandas as pd
-        st.divider() # Araya şık bir çizgi çeker
+    st.divider() # Araya şık bir çizgi çeker
     with st.expander("📁 Toplu Besin Yükle (Excel / CSV) - Yeni Özellik!"):
         st.markdown("""
     **İpucu:** Yükleyeceğiniz dosyanın en üst satırında (sütun başlıkları olarak) İngilizce şu isimler olmalıdır: 
